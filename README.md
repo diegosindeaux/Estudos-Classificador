@@ -33,5 +33,5 @@ Utilizaria a importância das features em RandomForest.
 2. KNN
 3. SVM
 
-*How would you rate which of the trained models is the best?
+**How would you rate which of the trained models is the best?** <br>
 Se fosse uma análise entre modelos já prontos, usaria as métricas de data science, porém, vendo sem nada pronto, preferiria o Random Forest pelo tamanho do dataset e pelo alto número de valores faltantes.
