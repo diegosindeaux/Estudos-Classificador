@@ -37,7 +37,7 @@ print(confusion_matrix(y_test, y_pred)) # já percebi uma melhora significativa,
 joblib.dump(best_rf, 'SMOTE.pkl')
 loaded_model = joblib.load('SMOTE.pkl')
 
-new_data = pd.read_csv('data_testing.csv')
+new_data = pd.read_csv('data_testing.csv') # como teste final, eu sempre coloco para testar em relação ao ano atual.
 Z = new_data.drop('class', axis=1)
 
 predictions = loaded_model.predict(Z)

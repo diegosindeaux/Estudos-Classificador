@@ -2,7 +2,7 @@ import pandas as pd # type: ignore
 import seaborn as sns # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 import numpy as np # type: ignore
-from functions import convert_to_float
+from functions import to_float
 
 data = pd.read_csv('air_system_previous_years.csv')
 data_now = pd.read_csv('air_system_present_year.csv')
@@ -21,10 +21,10 @@ data.replace('na', np.nan, inplace=True)
 
 
 # na tentativa de ver se existia alguma correlação (esperadamente frustrada)
-plt.figure(figsize=(12, 8))
-sns.heatmap(data.corr(), annot=True, fmt=".2f", cmap='coolwarm')
-plt.title('Correlações')
-plt.show()
+# plt.figure(figsize=(12, 8))
+# sns.heatmap(data.corr(), annot=True, fmt=".2f", cmap='coolwarm')
+# plt.title('Correlações')
+# plt.show()
 
 # aqui eu estava querendo ver quantas colunas e linhas tinham 'na' nos dados para saber como poderia posseguir com eles.
 missing_data_columns = data.isnull().any(axis=0).sum()
@@ -45,10 +45,10 @@ data_cleaned = data.drop(columns=columns_drop, index=lines_drop)
 data_cleaned
 
 # mapa de calor das correlações (mais uma tentativa frustrada, porém, já deu uma melhorada na visualização).
-plt.figure(figsize=(12, 8))
-sns.heatmap(data_cleaned.corr(), annot=True, fmt=".2f", cmap='coolwarm')
-plt.title('Nova correlação')
-plt.show()
+# plt.figure(figsize=(12, 8))
+# sns.heatmap(data_cleaned.corr(), annot=True, fmt=".2f", cmap='coolwarm')
+# plt.title('Nova correlação')
+# plt.show()
 
 # minha última tratativa de dados será para completar os nulos faltantes com a média da coluna dele. (está comentada para o código não quebrar)
 # data_cleaned.fillna(data_cleaned.mean(), inplace=True)
@@ -57,11 +57,11 @@ plt.show()
 is_string = data_cleaned.map(lambda x: isinstance(x, str))
 print(is_string)
 
-data_cleaned = data_cleaned.map(convert_to_float) # percebi que na verdade todo o dataset estava no formato errado e resolvi converter para float.
+data_cleaned = data_cleaned.map(to_float) # percebi que na verdade todo o dataset estava no formato errado e resolvi converter para float.
 
 # agora eu pude confiar e fazer o tratamento dos nulos pela médias de sua coluna.
 data_cleaned.fillna(data_cleaned.mean(), inplace=True)
-data_cleaned = data_cleaned.to_csv('data_training.csv')
+data_cleaned.to_csv('data_training.csv')
 
 
 # repeti o processo com os dados do ano atual
@@ -77,6 +77,6 @@ now_columns_drop = now_missing_data_percentage_column[now_missing_data_percentag
 now_lines_drop = now_missing_data_percentage_line[now_missing_data_percentage_line > threshold].index
 data_now_cleaned = data_now.drop(columns=now_columns_drop, index=now_lines_drop)
 
-data_now_cleaned = data_now_cleaned.map(convert_to_float)
+data_now_cleaned = data_now_cleaned.map(to_float)
 data_now_cleaned.fillna(data_now_cleaned.mean(), inplace=True)
-data_now_cleaned = data_now_cleaned.to_csv('data_testing.csv')
+data_now_cleaned.to_csv('data_testing.csv')

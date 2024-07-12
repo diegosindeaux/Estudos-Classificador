@@ -33,7 +33,7 @@ joblib.dump(best_rf, 'random_forest.pkl')
 
 loaded_model = joblib.load('random_forest.pkl')
 
-new_data = pd.read_csv('data_testing.csv')
+new_data = pd.read_csv('data_testing.csv') # como teste final, eu sempre coloco para testar em relação ao ano atual.
 Z = new_data.drop('class', axis=1)
 
 predictions = loaded_model.predict(Z)
