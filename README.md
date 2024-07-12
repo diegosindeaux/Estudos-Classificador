@@ -26,7 +26,7 @@ Correlação entre os dados e análises de trend, para que pudesse, posteriormen
 PCA
 
 **What techniques would you use to select variables for your predictive model?** <br>
-Utilizaria a importância das features em RandomForest.
+Utilizaria a importância das features em RandomForest. Uma vez que treinada a IA, utilizaria a biblioteca SHAP para ter uma melhor noção dos dados.
 
 **What predictive models would you use or test for this problem? Please indicate at least 3.** <br>
 1. Random Forest
