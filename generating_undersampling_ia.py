@@ -28,6 +28,11 @@ best_parameter = { # primeiramente utilizei os dados que foram gerados pelo para
 best_rf = RandomForestClassifier(random_state=42, **best_parameter)
 best_rf.fit(X_train_under, y_train_under)
 
+importances = best_rf.feature_importances_
+feature_importances = pd.DataFrame({'Feature': X.columns, 'Importance': importances})
+feature_importances = feature_importances.sort_values(by='Importance', ascending=False)
+feature_importances.to_csv('feature_importances.csv') # criei um csv com as features mais importantes e assim, pude informar ao contratante.
+
 y_pred = best_rf.predict(X_test)
 print(accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
@@ -36,7 +41,7 @@ print(confusion_matrix(y_test, y_pred)) # aqui, a diferença já se mostrou colo
 joblib.dump(best_rf, 'undersampling.pkl')
 loaded_model = joblib.load('undersampling.pkl')
 
-new_data = pd.read_csv('data_testing.csv')
+new_data = pd.read_csv('data_testing.csv') # como teste final, eu sempre coloco para testar em relação ao ano atual.
 Z = new_data.drop('class', axis=1)
 
 predictions = loaded_model.predict(Z)
